@@ -108,7 +108,7 @@ export const Books = () => {
                 </div>
                 <div>
                     <p id="title1">{book.title}</p>
-                    <p id="description">{book.description}</p>
+                    <p id="description">{book.description?book.description:""}</p>
                 </div>
             </div>
             <br />
@@ -125,6 +125,7 @@ export const Books = () => {
                             <div>                                
                                 <p>{e.description}</p>
                                 <p>Created By: {e.createdBy.name}</p>
+                                <span>{e.members.length}/{e.memberLimit}</span>
                             </div>
                             <div>
                             {isMember(e.members)?<Button id="join-room1" variant="contained">View</Button>:<Button onClick={()=>{handleJoin(e._id)}} id="join-room1" variant="contained">Join</Button>}
