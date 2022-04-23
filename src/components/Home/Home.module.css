@@ -1,0 +1,26 @@
+.bookBox {
+  background: rgb(219, 203, 16);
+  background: linear-gradient(
+    90deg,
+    rgba(205, 193, 56, 0.244) 0%,
+    rgba(220, 33, 83, 0.538) 54%,
+    rgba(194, 252, 69, 0.597) 100%
+  );
+}
+.bookBox img:hover {
+  animation: chnge 2s ease-in;
+}
+
+@keyframes chnge {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.bookdes {
+  text-decoration: none;
+  color: rgb(234, 223, 223);
+}
