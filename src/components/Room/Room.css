@@ -1,7 +1,8 @@
-.App {
-    width: 100vw;
-    height: 100vh;
-    background: #fff;
+.roomdiv {
+    /* width: 100vw; */
+    /* height: 100vh; */
+    /* background: #fff; */
+    margin-bottom: 100px;
     color: #212121;
     font-family: "Open Sans", sans-serif;
     display: grid;
@@ -221,7 +222,7 @@
     font-weight: bold;
   }
   
-  .roomdiv{
+  /* .roomdiv{
       margin-bottom: 50px;
       margin-top: -40px;
-  }
+  } */

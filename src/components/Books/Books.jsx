@@ -163,7 +163,8 @@ export const Books = () => {
                             <div>                                
                                 <p>{e.description}</p>
                                 <p>Created By: {e.createdBy.name}</p>
-                                <span>{e.members.length}/{e.memberLimit}</span>
+                                <p>Creaeted On: {new Date(e.createdAt).toLocaleDateString()}</p>
+                                {e.members.length<e.memberLimit?<span style={{color:"green", fontSize:"20px"}}>Capacity: {e.members.length}/{e.memberLimit}</span>:<span style={{color:"red"}}>{e.members.length}/{e.memberLimit}</span>}
                             </div>
                             <div>
                             {user?isMember(e.members)?e.createdBy._id===user.id?<div>
