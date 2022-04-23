@@ -41,7 +41,6 @@ export const Home = () => {
 
   return (
     <Box className="main" width="100%">
-        <Box  height="15vh"></Box>
       <Box
         width="100%"
         padding="2rem"

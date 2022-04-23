@@ -29,7 +29,7 @@ export const Navbar = () => {
         {!user ? (
           <>
             {" "}
-            <Link to="/signup">
+            <Link to="/register">
               {" "}
               <Button colorScheme="blue">Signup</Button>
             </Link>

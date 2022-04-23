@@ -7,6 +7,7 @@ function App() {
   return (
     <Box>
       <Navbar/>
+       <Box  height="15vh"></Box>
       <AllRoutes />
     </Box>
   );

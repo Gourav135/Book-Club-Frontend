@@ -1,0 +1,25 @@
+.user-room{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:15px;
+    width: 90%;
+    margin: auto;
+    margin-top:50px;
+}
+.flex-div1{
+    display: flex;
+    justify-content:space-between;
+}
+.flex-div1>:nth-child(1){
+    margin-left:20px;
+}
+.flex-div1>:nth-child(2){
+    display: flex;
+    align-items:center;
+    margin-right:20px;
+}
+.user-room>div{
+    width: 90%;
+    min-height:50px;
+    border: 1px solid gray;
+}
