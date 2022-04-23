@@ -58,6 +58,12 @@ export const Navbar = () => {
           <Box padding="0.2rem" textAlign="center">
             {" "}
             <p margin="0.2rem">Hello {user.name}</p>
+            <Box sx={{display:"flex", gap: "20px"}}>
+            <Box >
+            <Link to={"/userroom"}><Button sx={{fontWeight:"bold"}}> Your Discussion Rooms</Button></Link>
+            <br/>
+            <Link to={"/allroom"}><Button sx={{fontWeight:"bold"}}> All Discussion Rooms </Button></Link>
+            </Box>
             <Button
               variant="contained"
               color="error"
@@ -66,6 +72,7 @@ export const Navbar = () => {
             >
               Logout
             </Button>
+            </Box>
           </Box>
         )}
       </Box>
