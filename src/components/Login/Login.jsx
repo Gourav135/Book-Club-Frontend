@@ -28,6 +28,7 @@ export const Login=()=>{
             setLoading(false);
             localStorage.setItem("bookclubUser", JSON.stringify(data));
             navigate("/")
+            window.location.reload(false);
         }).catch((er)=>{
             setLoading(false)
             setError(true);
@@ -38,8 +39,10 @@ export const Login=()=>{
 
     return(
         <Box>
-            <h1>Login</h1>
-            {loading?<CircularProgress/>:<Box sx={{display:"flex", flexDirection:"column", gap:"20px", width:"350px", margin:"auto"}} component={"form"}>
+            <h1 style={{
+                textAlign:"center"
+            }} >Login</h1>
+            {loading? <Box textAlign={"center"}><CircularProgress/></Box> :<Box sx={{display:"flex", flexDirection:"column", gap:"20px", width:"350px", margin:"auto"}} component={"form"}>
                 <TextField onChange={handleChange} id='email' value={formData.email} type="email" placeholder='Email'/>
                 <TextField onChange={handleChange} id='password' value={formData.password} type='password' placeholder='Password'/>
                 {formData.email&&formData.password?<Button onClick={handleSubmit} variant='contained'>Login</Button>:<Button disabled onClick={handleSubmit} variant='contained'>Login</Button>}

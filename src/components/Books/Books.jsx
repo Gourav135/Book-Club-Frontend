@@ -1,5 +1,6 @@
 import "./Books.css"
 import Button from '@mui/material/Button';
+import { Box } from "@mui/system";
 import {useState, useEffect} from "react";
 import { useParams } from "react-router";
 import axios from "axios";
@@ -42,7 +43,7 @@ export const Books = () => {
 
     function callRooms(){
         axios.get(`https://book-club-server-hackathon.herokuapp.com/groups/book/${book.title}`).then(({data})=>{
-            // console.log(data)
+            console.log(data)
             setRoom(data);
         })
     }
@@ -79,7 +80,9 @@ export const Books = () => {
 
     //Checking whether user is part of the meeting or not
     function isMember(members){
+        console.log("hai", members, user.id);
         let joined = members.filter((el)=>{
+
             if(el._id===user.id){
                 return el;
             }
@@ -106,14 +109,18 @@ export const Books = () => {
                 <div>
                     <img id="book-img" src={book.cover} alt="" />
                 </div>
-                <div>
+                <div style={{
+                    padding:"1rem"
+                }}>
                     <p id="title1">{book.title}</p>
-                    <p id="description">{book.description?book.description:""}</p>
+                    <p style={{
+                        fontSize:"15px"
+                    }} id="description">{book.description?book.description:""}</p>
                 </div>
             </div>
             <br />
             <div className="lower-div">
-                {loading?<CircularProgress/>:<form onSubmit={handleSubmit}>
+                {loading? <Box textAlign={"center"}><CircularProgress/></Box>:<form onSubmit={handleSubmit}>
                     <input name="description" value={createRoom.description} placeholder="Description of the Room" onChange={handleChange} id="input-description" type="text" />
                     <input name="memberLimit" value={createRoom.memberLimit} placeholder="Member Limit" onChange={handleChange} id="input-name" type="number" min="2" max="10" />
                     <input value="Create Room" id="create-room1" type="submit" />
@@ -123,9 +130,9 @@ export const Books = () => {
                     return (
                         <div className="create-room-div">
                             <div>                                
-                                <p>{e.description}</p>
-                                <p>Created By: {e.createdBy.name}</p>
-                                <span>{e.members.length}/{e.memberLimit}</span>
+                                <p>{e?.description}</p>
+                                <p>Created By: {e?.createdBy.name}</p>
+                                <span>{e?.members.length}/{e?.memberLimit}</span>
                             </div>
                             <div>
                             {isMember(e.members)?<Button id="join-room1" variant="contained">View</Button>:<Button onClick={()=>{handleJoin(e._id)}} id="join-room1" variant="contained">Join</Button>}

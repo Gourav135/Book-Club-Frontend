@@ -1,0 +1,19 @@
+.butn {
+  text-decoration: none;
+  margin: 0rem 0.5rem;
+}
+
+.page_name {
+  text-decoration: none;
+  font-weight: 800;
+  color: rgb(218, 217, 225);
+}
+.nav_page {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(206, 177, 14, 0.692) 0%,
+    rgba(219, 46, 88, 0.72919590199361) 40%,
+    rgba(255, 0, 111, 0.64) 100%
+  );
+}

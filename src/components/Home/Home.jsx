@@ -1,6 +1,6 @@
-import { Box, Button, Image, Input, Stack, Text } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { Box, Input, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
+import Button from "@mui/material/Button";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Home_css from "./Home.module.css";
@@ -40,46 +40,36 @@ export const Home = () => {
   };
 
   return (
-    <Box className="main" width="100%">
+    <Box className="main" width="94%">
       <Box
         width="100%"
         padding="2rem"
-        height="20vh"
+        height="10vh"
         display="flex"
+        marginTop={5}
         justifyContent="flex-end"
       >
-        <Stack  width="45%" direction="row" spacing="4rem">
-          <Button
-            colorScheme="pink"
-            variant="ghost"
-            border="0.5px solid"
-            onClick={() => handleSort(1)}
-          >
+        <Box width="40%" direction="row" >
+          <Button variant="contained" onClick={() => handleSort(1)}>
             A - Z
           </Button>
           <Button
-            colorScheme="orange"
-            variant="ghost"
-            border="0.5px solid"
+            variant="outlined"
             onClick={() => handleSort(0)}
           >
             Z - A
           </Button>
-        </Stack>{" "}
-        <SearchIcon w={4} h={10} color="gray" marginRight="0.5rem"></SearchIcon>
-        <Input
-          variant="flushed"
-          placeholder="Search Books"
-          htmlSize={20}
-          width="auto"
-        />{" "}
+        </Box>
+        <Box>
+          <Input placeholder="Search Book"  />
+        </Box>
       </Box>
-      <hr />
+      <hr width={1000}/>
       <Box
         width="100%"
         padding="2rem"
         display="grid"
-        gridTemplateColumns="1fr 1fr 1fr 1fr"
+        gridTemplateColumns="1fr 1fr 1fr"
         justifyContent="space-around"
       >
         {books.length > 0 &&
@@ -101,22 +91,20 @@ export const Home = () => {
                   borderRadius="0.5rem"
                   key={el.key}
                 >
-                  <Link to={`${el.key.trim().split("/")[2]}`}>
-                    <Image
-                      height="80%"
-                      width="100%"
-                      margin="auto"
-                      borderRadius="0.5rem"
+                  <Link  className={Home_css.bookdes}  to={`${el.key.trim().split("/")[2]}`}>
+                    <img
+                      style={{
+                        height: "80%",
+                        width: "100%",
+                        margin: "auto",
+                        borderRadius: "0.5rem",
+                      }}
                       src={el.cover}
                       alt="cover"
                     />
-                    <Box margin="0.8rem 0rem">
-                      <Text fontSize="15px" fontWeight="600" textAlign="center">
-                        {el.title}
-                      </Text>
-                      <Text fontSize="10px" textAlign="center">
-                        {el.author && el.author}
-                      </Text>
+                    <Box textAlign="center">
+                      <h3>{el.title}</h3>
+                      <p style={{ fontSize:"12px"}} >{el.author && el.author}</p>
                     </Box>
                   </Link>
                 </Box>

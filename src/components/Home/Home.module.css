@@ -1,43 +1,26 @@
-.bookBox img:hover{
-  animation: chnge 2s ease-in ;
+.bookBox {
+  background: rgb(219, 203, 16);
+  background: linear-gradient(
+    90deg,
+    rgba(205, 193, 56, 0.244) 0%,
+    rgba(220, 33, 83, 0.538) 54%,
+    rgba(194, 252, 69, 0.597) 100%
+  );
+}
+.bookBox img:hover {
+  animation: chnge 2s ease-in;
 }
 
 @keyframes chnge {
-
-    from{
-        transform: scale(1);
-    }
-    to{
-        transform: scale(1.1);
-    }
-    
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
 }
 
-.bookBox:hover{
-  animation: colorchnge 4s linear ;
-}
-
-@keyframes colorchnge {
-
-    20%{
-      background-color: rgb(238, 241, 243);
-      color: rgb(75, 71, 71);
-    }
-    40%{
-        background-color: rgb(206, 217, 206);
-        color: rgb(76, 71, 71);
-    }
-    60%{
-        background-color: rgb(207, 201, 210);
-        color: rgb(126, 120, 120);
-    }
-    80%{
-        background-color: rgb(193, 187, 187);
-        color: rgb(108, 103, 103);
-    }
-    100%{
-        background-color: rgb(189, 189, 184);
-        color: rgb(96, 92, 92);
-    }
-    
+.bookdes {
+  text-decoration: none;
+  color: rgb(234, 223, 223);
 }

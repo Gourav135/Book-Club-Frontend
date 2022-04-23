@@ -29,8 +29,10 @@ export const Register=()=>{
 
     return(
         <Box>
-            <h1>Register</h1>
-            {loading?<CircularProgress/>:<Box sx={{display:"flex", flexDirection:"column", gap:"20px", width:"350px", margin:"auto"}} component={"form"}>
+            <h1 style={{
+                textAlign:"center"
+            }}>Register</h1>
+            {loading?<Box textAlign={"center"}> <CircularProgress/></Box>:<Box sx={{display:"flex", flexDirection:"column", gap:"20px", width:"350px", margin:"auto"}} component={"form"}>
                 
                 <TextField onChange={handleChange} id='name' value={formData.name} placeholder='Name'/>
                 <TextField onChange={handleChange} id='email' value={formData.email} type="email" placeholder='Email'/>
