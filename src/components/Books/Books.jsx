@@ -146,7 +146,9 @@ export const Books = () => {
             <br />
             <div className="lower-div">
                 {loading?<CircularProgress/>:user?<Box sx={{display:"block", marginLeft:"90%"}}><Button variant="contained" onClick={handleOpen}>Add Room</Button></Box>:<Box sx={{display:"block", marginLeft:"90%"}}><Button variant="contained" disabled>Add Room</Button></Box>}
+                <h2>Rooms</h2>
             <div id="rooms-div">
+                
                 {room.map((e) => {
                     return (
                         <div key={e.key} className="create-room-div">
