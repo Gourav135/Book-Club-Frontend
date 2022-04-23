@@ -28,6 +28,7 @@ export const Login=()=>{
             setLoading(false);
             localStorage.setItem("bookclubUser", JSON.stringify(data));
             navigate("/")
+            window.location.reload(false);
         }).catch((er)=>{
             setLoading(false)
             setError(true);

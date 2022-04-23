@@ -5,9 +5,12 @@ import { UserRoom } from "../components/UserRoom/UserRoom";
 import { AllRoom } from "../components/AllRoom/AllRoom";
 import { Register } from "../components/Register/Register";
 import { Login } from "../components/Login/Login";
+import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
+
 
 export const AllRoutes = () => {
     return (
+        <ScrollToTop>
         <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<Login/>}/>
@@ -16,5 +19,6 @@ export const AllRoutes = () => {
             <Route path="/userroom" element={<UserRoom/>}/>
             <Route path="/allroom" element={<AllRoom/>}/>
         </Routes>
+        </ScrollToTop>
     )
 }

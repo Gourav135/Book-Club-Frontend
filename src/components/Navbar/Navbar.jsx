@@ -1,14 +1,20 @@
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Navbar_CSS from "./Navbar.module.css";
+
 export const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("bookclubUser")) || null;
 
   const userLogout = () => {
-    localStorage.removeItem("bookclubUser");
-    window.location.reload(false);
-  };
-  console.log(user);
+     let ans = window.confirm("Logout !, Are you sure ?")
+    if (ans) {
+      localStorage.removeItem("bookclubUser");
+      window.location.reload(false);
+      return;
+    } else {
+      return;
+    }
+  }
   return (
     <Box
       zIndex="2"
@@ -23,11 +29,11 @@ export const Navbar = () => {
       justifyContent="end"
       className={Navbar_CSS.nav_page}
     >
-      <Box width="38%">
+      <Box width="60%">
         {" "}
         <h1>
           <Link to="/" className={Navbar_CSS.page_name}>
-            Book Club
+            Book <span style={{ color:"black"}}>Club</span> 
           </Link>{" "}
         </h1>
       </Box>
@@ -37,10 +43,14 @@ export const Navbar = () => {
           <>
             {" "}
             <Link to="/register" className={Navbar_CSS.butn}>
-              <Button  variant="contained" color="error" >Signup</Button>
+              <Button variant="contained" color="error">
+                Signup
+              </Button>
             </Link>
             <Link to="/login" className={Navbar_CSS.butn}>
-              <Button variant="contained" color="success">Login</Button>
+              <Button variant="contained" color="success">
+                Login
+              </Button>
             </Link>
           </>
         ) : (

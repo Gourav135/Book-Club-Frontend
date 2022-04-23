@@ -49,12 +49,13 @@ export const Home = () => {
         marginTop={5}
         justifyContent="flex-end"
       >
-        <Box width="40%" direction="row" >
-          <Button variant="contained" onClick={() => handleSort(1)}>
+        <Box width="65%" direction="row" >
+          <Button variant="contained"  onClick={() => handleSort(1)}>
             A - Z
           </Button>
           <Button
-            variant="outlined"
+            variant="contained"
+            color="secondary"
             onClick={() => handleSort(0)}
           >
             Z - A
