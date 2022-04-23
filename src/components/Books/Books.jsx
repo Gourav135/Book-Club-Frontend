@@ -1,7 +1,7 @@
 import "./Books.css"
 import Button from '@mui/material/Button';
 import {useState, useEffect} from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../Redux/Auth/auth.action";
@@ -39,6 +39,8 @@ export const Books = () => {
         flexDirection:"column",
         justifyContent:"center"
       };
+
+      const navigate = useNavigate()
 
     useEffect(()=>{
         dispatch(setUser(JSON.parse(localStorage.getItem("bookclubUser"))));
@@ -132,6 +134,10 @@ export const Books = () => {
         })
     }
 
+    function handleViewBtn(roomid){
+        navigate(`/room/${roomid}`)
+    }
+
     return (
         <div className="Main-div1">
             <div className="upper-div">
@@ -159,11 +165,11 @@ export const Books = () => {
                             </div>
                             <div>
                             {user?isMember(e.members)?e.createdBy._id===user.id?<div>
-                                <Button id="join-room1" variant="contained">View</Button>
+                                <Button onClick={()=>{handleViewBtn(e._id)}} id="join-room1" variant="contained">View</Button>
                                 <br/>
                                 <Button onClick={()=>{handleDelete(e._id)}} sx={{backgroundColor:"red"}} id="join-room1" variant="contained" >Delete</Button>
                                 </div>:<div>
-                                    <Button id="join-room1" variant="contained">View</Button>
+                                    <Button onClick={()=>{handleViewBtn(e._id)}} id="join-room1" variant="contained">View</Button>
                                     <br/>
                                     <Button onClick={()=>{handleLeave(e._id)}}  sx={{backgroundColor:"red"}} id="join-room1" variant="contained">Leave</Button>
                                 </div>:<Button onClick={()=>{handleJoin(e._id)}} id="join-room1" variant="contained">Join</Button>:<Button  id="join-room1" variant="contained">Sign In</Button>}

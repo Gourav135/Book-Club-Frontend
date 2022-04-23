@@ -5,6 +5,7 @@ import { UserRoom } from "../components/UserRoom/UserRoom";
 import { AllRoom } from "../components/AllRoom/AllRoom";
 import { Register } from "../components/Register/Register";
 import { Login } from "../components/Login/Login";
+import { Room } from "../components/Room/Room";
 
 export const AllRoutes = () => {
     return (
@@ -15,6 +16,7 @@ export const AllRoutes = () => {
             <Route path="/:bookid" element={<Books/>}/>
             <Route path="/UserRoom" element={<UserRoom/>}/>
             <Route path="/AllRoom" element={<AllRoom/>}/>
+            <Route path="/room/:roomid" element={<Room/>}/>
         </Routes>
     )
 }
