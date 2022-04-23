@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Box height="20vh"></Box>
+      {/* <Box height="20vh"></Box> */}
       <AllRoutes />
     </div>
   );

@@ -67,7 +67,10 @@
     display:flex;
     justify-content: space-between;
     min-height:50px;
-    border: 1px solid gray;
+    border: 1px solid white;
+    /* background-color: white; */
+    font-weight: bold;
+    color: white;
 }
 #join-room1{
     width: 200px;
@@ -77,6 +80,7 @@
 .create-room-div>:nth-child(1)>p{
     font-size:18px;
     margin-left: 30px;
+    font-weight: 500px;
 }
 .create-room-div>:nth-child(2){
     display: flex;
