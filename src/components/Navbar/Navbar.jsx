@@ -19,7 +19,8 @@ export const Navbar = () => {
     <Box
       zIndex="2"
       backgroundColor="white"
-      position="fixed"
+      position="sticky"
+      top="0px"
       width="98%"
       display="flex"
       height="15vh"
