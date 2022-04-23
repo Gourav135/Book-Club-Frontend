@@ -1,4 +1,4 @@
-import { Box, Input, Stack } from "@mui/material";
+import { Box, Input, Stack, CircularProgress,Alert } from "@mui/material";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import axios from "axios";
@@ -10,6 +10,8 @@ export const Home = () => {
   const [AtoZ, setAtoZ] = useState(false);
   const [ZtoA, setZtoA] = useState(false);
   const [search, setSearch] = useState("")
+  const [loading, setLoading] = useState(true);
+  const [errorstate, setErrorState] = useState(false)
   // const [debounceData, setDebounceData] = useState([])
   useEffect(() => {
     axios
@@ -25,9 +27,13 @@ export const Home = () => {
         });
         console.log(x);
         setBooks(x);
+        setLoading(false)
+        setErrorState(false)
       })
       .catch((er) => {
         console.log(er);
+        setLoading(false);
+        setErrorState(true)
       });
   }, []);
 
@@ -64,6 +70,7 @@ export const Home = () => {
   }
 
   function handleSearch(){
+    setLoading(true)
     axios.get(`https://openlibrary.org/search.json?q=${search}&limit=10`).then(({data})=>{
       let x = data.docs.map((el)=>{
         return {
@@ -74,6 +81,11 @@ export const Home = () => {
         }
       })
       setBooks(x)
+      setLoading(false)
+      setErrorState(false)
+    }).catch((er)=>{
+      setLoading(false);
+      setErrorState(true)
     })
   }
 
@@ -109,7 +121,8 @@ export const Home = () => {
         </Box>
       </Box>
       <hr width={1000}/>
-      <Box
+      {errorstate?<Alert severity="error">Something Went Wrong</Alert>:""}
+      {loading?<CircularProgress/>:<Box
         width="100%"
         padding="2rem"
         display="grid"
@@ -154,7 +167,7 @@ export const Home = () => {
                 </Box>
               );
             })}
-      </Box>
+      </Box>}
     </Box>
   );
 };

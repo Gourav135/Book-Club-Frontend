@@ -28,7 +28,7 @@ export const Room = ()=>{
     },[])
 
     useEffect(()=>{
-        setSocket(io.connect("http://localhost:8080"))       
+        setSocket(io.connect("https://book-club-server-hackathon.herokuapp.com"/*"http://localhost:2345"*/))       
       },[])
 
       useEffect(()=>{
