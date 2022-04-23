@@ -9,9 +9,11 @@ export const Home = () => {
   const [books, setBooks] = useState([]);
   const [AtoZ, setAtoZ] = useState(false);
   const [ZtoA, setZtoA] = useState(false);
+  const [search, setSearch] = useState("")
+  // const [debounceData, setDebounceData] = useState([])
   useEffect(() => {
     axios
-      .get(`http://openlibrary.org/subjects/love.json?limit=10`)
+      .get(`https://openlibrary.org/subjects/love.json?limit=10`)
       .then(({ data }) => {
         let x = data.works.map((el) => {
           return {
@@ -39,6 +41,42 @@ export const Home = () => {
     }
   };
 
+  function handleChange(e){
+    setSearch(e.target.value)
+    // //Debouncing.... FOr the time being removed
+    // if(e.target.value.length>=1){
+    //   let timer;
+    //   if(timer){
+    //     clearTimeout(timer)
+    //   }
+    //   timer = setTimeout(()=>{
+    //     axios.get(`https://openlibrary.org/search.json?q=${search}&limit=10`).then(({data})=>{
+    //   let x = data.docs.map((el)=>{
+    //     return {
+    //       title: el.title,
+    //       key:el.key
+    //     }
+    //   })
+    //   setDebounceData(x)
+    // })
+    //   },500)
+    // }
+  }
+
+  function handleSearch(){
+    axios.get(`https://openlibrary.org/search.json?q=${search}&limit=10`).then(({data})=>{
+      let x = data.docs.map((el)=>{
+        return {
+          title: el.title,
+          author:el.author,
+          cover:`https://covers.openlibrary.org/b/id/${el.cover_i}-M.jpg`,
+          key:el.key
+        }
+      })
+      setBooks(x)
+    })
+  }
+
   return (
     <Box className="main" width="94%">
       <Box
@@ -61,7 +99,13 @@ export const Home = () => {
           </Button>
         </Box>
         <Box>
-          <Input placeholder="Search Book"  />
+          <Input onChange={handleChange} value={search} placeholder="Search Book"  />
+          <Button onClick={handleSearch} variant="contained" sx={{margin:"10px"}}>Search</Button>
+          {/* <Box sx={{position:"absolute",zIndex:5, backgroundColor:"white"}}>
+            {debounceData.length>0&&debounceData.map((el)=>{
+              return <Link key={el.key} to={`${el.key.trim().split("/")[2]}`}><p>{el.title}</p></Link>
+            })}
+          </Box> */}
         </Box>
       </Box>
       <hr width={1000}/>
@@ -95,7 +139,7 @@ export const Home = () => {
                     <img
                       style={{
                         height: "80%",
-                        width: "100%",
+                        width: "80%",
                         margin: "auto",
                         borderRadius: "0.5rem",
                       }}
