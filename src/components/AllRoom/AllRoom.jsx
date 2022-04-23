@@ -7,6 +7,7 @@ import axios from "axios";
 
 export const AllRoom = () => {
     const user = useSelector((store)=>store.auth.user);
+    console.log("All rooms");
     const [groups, setGroups] = useState([]);
     const dispatch = useDispatch()
 
@@ -19,6 +20,8 @@ export const AllRoom = () => {
         if(user){
             axios.get(`https://book-club-server-hackathon.herokuapp.com/groups`).then(({data})=>{
                 setGroups(data);
+
+                console.log("hai", data);
             })
         }
        
