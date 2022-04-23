@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../Redux/Auth/auth.action";
-import {CircularProgress} from '@mui/material'
+import {CircularProgress, Modal, Box, TextField} from '@mui/material'
 
 export const Books = () => {
     const user = useSelector((store)=>store.auth.user)
@@ -20,6 +20,26 @@ export const Books = () => {
     //retrieving book data
     const [book, setBook] = useState({});
     const {bookid} = useParams()
+
+    //MOdal
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 600,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        display: "flex",
+        flexDirection:"column",
+        justifyContent:"center"
+      };
+
     useEffect(()=>{
         dispatch(setUser(JSON.parse(localStorage.getItem("bookclubUser"))));
     },[])
@@ -33,7 +53,6 @@ export const Books = () => {
                 cover:`https://covers.openlibrary.org/b/id/${data.covers[data.covers.length-1]}-L.jpg`
             })
         })
-
     },[])
 
     useEffect(()=>{
@@ -42,7 +61,7 @@ export const Books = () => {
 
     function callRooms(){
         axios.get(`https://book-club-server-hackathon.herokuapp.com/groups/book/${book.title}`).then(({data})=>{
-            // console.log(data)
+            console.log(data)
             setRoom(data);
         })
     }
@@ -68,10 +87,11 @@ export const Books = () => {
         axios.post(`https://book-club-server-hackathon.herokuapp.com/groups`, payload).then(()=>{
             callRooms();
             setCreateRoom({
-                memberLimit:10,
+                memberLimit:"",
                 description:""
             })
             setLoading(false)
+            handleClose()
         }).catch(()=>{
             setLoading(false);
         })
@@ -90,12 +110,24 @@ export const Books = () => {
         else{
             return false;
         }
-
     }
 
     function handleJoin(groupId){
         let payload = {userId:user.id}
         axios.post(`https://book-club-server-hackathon.herokuapp.com/groups/joinGroup/${groupId}`,payload ).then(()=>{
+            callRooms()
+        })
+    }
+
+    function handleLeave(groupId){
+        let payload = {userId:user.id}
+        axios.post(`https://book-club-server-hackathon.herokuapp.com/groups/leaveGroup/${groupId}`,payload ).then(()=>{
+            callRooms()
+        })
+    }
+
+    function handleDelete(groupId){
+        axios.delete(`https://book-club-server-hackathon.herokuapp.com/groups/${groupId}`).then(()=>{
             callRooms()
         })
     }
@@ -113,28 +145,53 @@ export const Books = () => {
             </div>
             <br />
             <div className="lower-div">
-                {loading?<CircularProgress/>:<form onSubmit={handleSubmit}>
-                    <input name="description" value={createRoom.description} placeholder="Description of the Room" onChange={handleChange} id="input-description" type="text" />
-                    <input name="memberLimit" value={createRoom.memberLimit} placeholder="Member Limit" onChange={handleChange} id="input-name" type="number" min="2" max="10" />
-                    <input value="Create Room" id="create-room1" type="submit" />
-                </form>}
+                {loading?<CircularProgress/>:user?<Box sx={{display:"block", marginLeft:"90%"}}><Button variant="contained" onClick={handleOpen}>Add Room</Button></Box>:<Box sx={{display:"block", marginLeft:"90%"}}><Button variant="contained" disabled>Add Room</Button></Box>}
             <div id="rooms-div">
                 {room.map((e) => {
                     return (
-                        <div className="create-room-div">
+                        <div key={e.key} className="create-room-div">
                             <div>                                
                                 <p>{e.description}</p>
                                 <p>Created By: {e.createdBy.name}</p>
                                 <span>{e.members.length}/{e.memberLimit}</span>
                             </div>
                             <div>
-                            {isMember(e.members)?<Button id="join-room1" variant="contained">View</Button>:<Button onClick={()=>{handleJoin(e._id)}} id="join-room1" variant="contained">Join</Button>}
+                            {user?isMember(e.members)?e.createdBy._id===user.id?<div>
+                                <Button id="join-room1" variant="contained">View</Button>
+                                <br/>
+                                <Button onClick={()=>{handleDelete(e._id)}} sx={{backgroundColor:"red"}} id="join-room1" variant="contained" >Delete</Button>
+                                </div>:<div>
+                                    <Button id="join-room1" variant="contained">View</Button>
+                                    <br/>
+                                    <Button onClick={()=>{handleLeave(e._id)}}  sx={{backgroundColor:"red"}} id="join-room1" variant="contained">Leave</Button>
+                                </div>:<Button onClick={()=>{handleJoin(e._id)}} id="join-room1" variant="contained">Join</Button>:<Button  id="join-room1" variant="contained">Sign In</Button>}
                             </div>
                         </div>
                     )
                 })}
             </div>
             </div>
+
+            <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+        <label htmlFor="description">Discussion Topic:
+        <TextField name="description" value={createRoom.description} placeholder="Description of the Room" onChange={handleChange}  type="text" />
+        </label>
+        <br />
+        <label htmlFor="memberLimit">Maximum Member Limit
+        <TextField name="memberLimit" value={createRoom.memberLimit} placeholder="Member Limit" onChange={handleChange}  type="number" min="2" max="10" />
+        </label>
+        <br />
+        <Button variant="contained" onClick={handleSubmit} type="submit">Create Room</Button>
+        </Box>
+      </Modal>
         </div>
     )
 }
+
+

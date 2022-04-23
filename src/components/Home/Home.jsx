@@ -32,7 +32,7 @@ export const Home = () => {
                     <Link to={`${el.key.trim().split("/")[2]}`}>
                     <img src={el.cover} alt="cover" />
                     <h3>{el.title}</h3>
-                    <p>{el.author&&el.author[0]}</p>
+                    <p>{el.author&&el.author}</p>
                     </Link>
                 </div>
             })}
