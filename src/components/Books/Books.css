@@ -33,7 +33,7 @@
 }
 #description{
     font-size:25px;
-    font-family: sans-serif;
+    padding: 0 30px;
 }
 .lower-div>:nth-child(1){
     display:flex;

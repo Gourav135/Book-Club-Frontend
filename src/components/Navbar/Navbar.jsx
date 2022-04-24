@@ -17,7 +17,7 @@ export const Navbar = () => {
   }
   return (
     <Box
-      zIndex="2"
+      zIndex="500"
       backgroundColor="white"
       position="sticky"
       top="0px"
