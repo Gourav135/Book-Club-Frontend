@@ -6,11 +6,13 @@ import { useState, useEffect } from "react";
 import { setUser } from "../../Redux/Auth/auth.action";
 import axios from "axios";
 import MessageIcon from "@mui/icons-material/Message";
+import { useNavigate } from "react-router";
 
 export const UserRoom = () => {
   const user = useSelector((store) => store.auth.user);
   const [groups, setGroups] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   //Just to ensure that even if page is refreshed the user is not logged out
   useEffect(() => {
@@ -34,6 +36,9 @@ export const UserRoom = () => {
         bookName
         description
     } */
+    function handleViewBtn(roomid){
+      navigate(`/room/${roomid}`)
+  }
 
   return (
     <>
@@ -107,8 +112,8 @@ export const UserRoom = () => {
             </p>
             <Box>
               {user ? (
-                <Button id="join-room1" variant="contained">
-                  Join
+                <Button onClick={()=>{handleViewBtn(el._id)}} id="join-room1" variant="contained">
+                  View
                 </Button>
               ) : (
                 <Button disabled id="join-room1" variant="contained">

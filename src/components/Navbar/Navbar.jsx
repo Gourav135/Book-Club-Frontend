@@ -60,7 +60,7 @@ export const Navbar = () => {
             <p style={{fontWeight:"bold"}} margin="0.2rem">Hello <span  style={{color:"white", marginLeft:"5px"}}> {user.name}</span></p>
             <Box sx={{display:"flex", gap: "20px"}}>
             <Box >
-            <Link to={"/userroom"}><Button sx={{fontWeight:"bold", color:"white", textDecoration:"none"}}> Your Discussion Rooms</Button></Link>
+            <Link to={"/userroom"}><Button sx={{fontWeight:"bold", color:"white", textDecoration:"none"}}> My Discussion Rooms</Button></Link>
             <br/>
             <Link to={"/allroom"}><Button sx={{fontWeight:"bold", color:"white", textDecoration:"none"}}> All Discussion Rooms </Button></Link>
             </Box>
