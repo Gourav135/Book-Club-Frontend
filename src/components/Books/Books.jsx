@@ -146,9 +146,7 @@ export const Books = () => {
                 </div>
                 <div>
                     <p id="title1">{book.title}</p>
-                    <p style={{
-                        fontSize:"15px"
-                    }} id="description">{book.description?book.description:""}</p>
+                    <p id="description">{book.description?book.description:""}</p>
                 </div>
             </div>
             <br />

@@ -12,7 +12,7 @@ export const Home = () => {
   const [search, setSearch] = useState("")
   const [loading, setLoading] = useState(true);
   const [errorstate, setErrorState] = useState(false)
-  // const [debounceData, setDebounceData] = useState([])
+  const [debounceData, setDebounceData] = useState([]);
   useEffect(() => {
     axios
       .get(`https://openlibrary.org/subjects/love.json?limit=10`)
@@ -25,7 +25,7 @@ export const Home = () => {
             key: el.key,
           };
         });
-        console.log(x);
+        // console.log(x);
         setBooks(x);
         setLoading(false)
         setErrorState(false)
@@ -49,24 +49,27 @@ export const Home = () => {
 
   function handleChange(e){
     setSearch(e.target.value)
-    // //Debouncing.... FOr the time being removed
-    // if(e.target.value.length>=1){
-    //   let timer;
-    //   if(timer){
-    //     clearTimeout(timer)
-    //   }
-    //   timer = setTimeout(()=>{
-    //     axios.get(`https://openlibrary.org/search.json?q=${search}&limit=10`).then(({data})=>{
-    //   let x = data.docs.map((el)=>{
-    //     return {
-    //       title: el.title,
-    //       key:el.key
-    //     }
-    //   })
-    //   setDebounceData(x)
-    // })
-    //   },500)
-    // }
+    //Debouncing.... FOr the time being removed
+    if(e.target.value.length>=1){
+      let timer;
+      if(timer){
+        clearTimeout(timer)
+      }
+      timer = setTimeout(()=>{
+        axios.get(`https://openlibrary.org/search.json?q=${search}&limit=10`).then(({data})=>{
+      let x = data.docs.map((el)=>{
+        return {
+          title: el.title,
+          key:el.key,
+          cover:`https://covers.openlibrary.org/b/id/${el.cover_i}-M.jpg`,
+        }
+      })
+      if(x){
+        setDebounceData(x);
+      }
+    })
+      },200)
+    }
   }
 
   function handleSearch(){
@@ -88,7 +91,6 @@ export const Home = () => {
       setErrorState(true)
     })
   }
-
   return (
     <Box className="main" width="94%">
       <Box
@@ -113,12 +115,12 @@ export const Home = () => {
         </Box>
         <Box>
           <Input onChange={handleChange} value={search} placeholder="Search Book"  />
-          <Button onClick={handleSearch} variant="contained" sx={{margin:"10px"}}>Search</Button>
-          {/* <Box sx={{position:"absolute",zIndex:5, backgroundColor:"white"}}>
-            {debounceData.length>0&&debounceData.map((el)=>{
-              return <Link key={el.key} to={`${el.key.trim().split("/")[2]}`}><p>{el.title}</p></Link>
+          <Button  onClick={handleSearch} variant="contained" sx={{margin:"10px"}}>Search</Button>
+          {debounceData.length!=0 ? <Box sx={{position:"relative",zIndex:50, backgroundColor:"#ef6190",width:"450px",overflow:"auto",height:"600px"}}>
+            { debounceData.map((el)=>{
+              return <Link key={el.key} to={`${el.key.trim().split("/")[2]}`}><div style={{display:"flex",border:"1px solid black",margin:"15px"}}><div style={{width:"130px",height:"150px",}}><img src={el.cover} alt="" width="100%" height="100%"/></div><p style={{margin:"0 10px 0 10px",width:"300px",textAlign:"left",fontSize:"18px",lineHeight:"1.6",color:"black",textDecoration:"none"}}>{el.title}</p></div></Link>
             })}
-          </Box> */}
+          </Box> : null}
         </Box>
       </Box>
       <hr width={1000}/>
