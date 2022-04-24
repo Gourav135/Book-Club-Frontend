@@ -12,7 +12,7 @@ export const Home = () => {
   const [search, setSearch] = useState("")
   const [loading, setLoading] = useState(true);
   const [errorstate, setErrorState] = useState(false)
-  // const [debounceData, setDebounceData] = useState([])
+  const [debounceData, setDebounceData] = useState([])
   useEffect(() => {
     axios
       .get(`https://openlibrary.org/subjects/love.json?limit=10`)
@@ -49,24 +49,24 @@ export const Home = () => {
 
   function handleChange(e){
     setSearch(e.target.value)
-    // //Debouncing.... FOr the time being removed
-    // if(e.target.value.length>=1){
-    //   let timer;
-    //   if(timer){
-    //     clearTimeout(timer)
-    //   }
-    //   timer = setTimeout(()=>{
-    //     axios.get(`https://openlibrary.org/search.json?q=${search}&limit=10`).then(({data})=>{
-    //   let x = data.docs.map((el)=>{
-    //     return {
-    //       title: el.title,
-    //       key:el.key
-    //     }
-    //   })
-    //   setDebounceData(x)
-    // })
-    //   },500)
-    // }
+    //Debouncing.... FOr the time being removed
+    if(e.target.value.length>=1){
+      let timer;
+      if(timer){
+        clearTimeout(timer)
+      }
+      timer = setTimeout(()=>{
+        axios.get(`https://openlibrary.org/search.json?q=${search}&limit=10`).then(({data})=>{
+      let x = data.docs.map((el)=>{
+        return {
+          title: el.title,
+          key:el.key
+        }
+      })
+      setDebounceData(x)
+    })
+      },500)
+    }
   }
 
   function handleSearch(){
@@ -114,11 +114,11 @@ export const Home = () => {
         <Box>
           <Input onChange={handleChange} value={search} placeholder="Search Book"  />
           <Button onClick={handleSearch} variant="contained" sx={{margin:"10px"}}>Search</Button>
-          {/* <Box sx={{position:"absolute",zIndex:5, backgroundColor:"white"}}>
+          <Box sx={{position:"relative",zIndex:1, backgroundColor:"white"}}>
             {debounceData.length>0&&debounceData.map((el)=>{
               return <Link key={el.key} to={`${el.key.trim().split("/")[2]}`}><p>{el.title}</p></Link>
             })}
-          </Box> */}
+          </Box>
         </Box>
       </Box>
       <hr width={1000}/>
