@@ -5,12 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../Redux/Auth/auth.action";
 import axios from "axios";
 import GroupsIcon from "@mui/icons-material/Groups";
+import {useNavigate} from "react-router-dom"
 
 export const AllRoom = () => {
   const user = useSelector((store) => store.auth.user);
   const [groups, setGroups] = useState([]);
   const [arr, setArr] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   //Just to ensure that even if page is refreshed the user is not logged out
   useEffect(() => {
@@ -19,7 +21,12 @@ export const AllRoom = () => {
 
   useEffect(() => {
     if (user) {
-      axios
+      callRooms()
+    }
+  }, [user]);
+
+  function callRooms(){
+    axios
         .get(`https://book-club-server-hackathon.herokuapp.com/groups`)
         .then(({ data }) => {
           setGroups(data);
@@ -28,8 +35,31 @@ export const AllRoom = () => {
             return day;
           });
         });
+  }
+
+  function isMember(members){
+    let joined = members.filter((el)=>{
+        if(el._id===user.id){
+            return el;
+        }
+    })
+    if(joined.length>0){
+        return true;
     }
-  }, [user]);
+    else{
+        return false;
+    }
+  }
+  function handleJoin(groupId){
+    let payload = {userId:user.id}
+    axios.post(`https://book-club-server-hackathon.herokuapp.com/groups/joinGroup/${groupId}`,payload ).then(()=>{
+        callRooms()
+    })
+  }
+
+  function handleViewBtn(roomid){
+    navigate(`/room/${roomid}`)
+  }
 
   return (
     <>
@@ -101,8 +131,10 @@ export const AllRoom = () => {
               {el.members.length}/{el.memberLimit}
             </p>
             <Box>
-              {user ? (
-                <Button id="join-room1" variant="contained">
+              {user ? isMember(el.members)?(<Button onClick={()=>{handleViewBtn(el._id)}} sx={{backgroundColor:"green"}} id="join-room1" variant="contained">
+                  View
+                </Button>):(
+                <Button onClick={()=>{handleJoin(el._id)}} id="join-room1" variant="contained">
                   Join
                 </Button>
               ) : (

@@ -114,7 +114,7 @@ export const Home = () => {
         <Box>
           <Input onChange={handleChange} value={search} placeholder="Search Book"  />
           <Button onClick={handleSearch} variant="contained" sx={{margin:"10px"}}>Search</Button>
-          {/* <Box sx={{position:"absolute",zIndex:5, backgroundColor:"white"}}>
+          {/* <Box sx={{position:"relative",zIndex:1, backgroundColor:"white"}}>
             {debounceData.length>0&&debounceData.map((el)=>{
               return <Link key={el.key} to={`${el.key.trim().split("/")[2]}`}><p>{el.title}</p></Link>
             })}
