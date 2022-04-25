@@ -175,7 +175,7 @@ export const Books = () => {
                                     <Button onClick={()=>{handleViewBtn(e._id)}} id="join-room1" variant="contained">View</Button>
                                     <br/>
                                     <Button onClick={()=>{handleLeave(e._id)}}  sx={{backgroundColor:"red"}} id="join-room1" variant="contained">Leave</Button>
-                                </div>:<Button onClick={()=>{handleJoin(e._id)}} id="join-room1" variant="contained">Join</Button>:<Button  id="join-room1" variant="contained">Sign In</Button>}
+                                </div>:<Button onClick={()=>{handleJoin(e._id)}} id="join-room1" variant="contained">Join</Button>:<Button onClick={()=>{navigate("/login")}}  id="join-room1" variant="contained">Sign In</Button>}
                             </div>
                         </div>
                     )
